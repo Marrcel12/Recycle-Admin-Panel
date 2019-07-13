@@ -8,11 +8,29 @@ var firebaseConfig = {
     messagingSenderId: "417297682309",
     appId: "1:417297682309:web:062f30b123605ae9"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 //custom code
-// qr camera
-
+//login firebase
+function login(){
+    console.log('dddd');
+    var userEmail = document.getElementById("email").value;
+    var userPass = document.getElementById("pass").value;
+  
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+  
+      window.alert("Error : " + errorMessage);
+  
+      // ...
+    });
+  
+  }
+  
+  
 function GetData() {
     var name = document.getElementById("name").value;
     var code = document.getElementById("code").value;

@@ -23,3 +23,15 @@
     list-style: none;
     
   } 
+  #searchData{
+    position: absolute;
+    right: 10%;
+    top: 18px;
+  }
+  #searchData *{
+      padding: 1%;
+
+  }
+  #searchData ul {
+      list-style: none;
+  }

@@ -8,8 +8,7 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
-    <!-- qr -->
-    <script src="quaggaJS/dist/quagga.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-auth.js"></script>
 
 </head>
 
@@ -56,12 +55,15 @@
         <button onclick="sendData()">Zapisz</button>
 
     </div>
-    <div id="searchData" style="position: absolute;
-    right: 181px;
-    top: 18px;">
+    <div id="searchData">
         <p> Znajdź po nazwie</p>
         <input class="itemName"> </button>
         <button onclick="searchData()"> Szukaj itemu</button>
+        <ul>
+            <li> Email <input type="text" id="email"></li>
+            <li> haslo <input type="text" id="pass"></li>
+            <li> <button onclick="login()">Log in</button></li>
+        </ul>
     </div>
 
 

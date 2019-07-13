@@ -12,32 +12,115 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 //custom code
 // qr camera
-function openQRCamera(node) {
-    var reader = new FileReader();
-    reader.onload = function () {
-        node.value = "";
-        qrcode.callback = function (res) {
-            if (res instanceof Error) {
-                alert("No QR code found. Please make sure the QR code is within the camera's frame and try again.");
-            } else {
-                node.parentNode.previousElementSibling.value = res;
-            }
-        };
-        qrcode.decode(reader.result);
-    };
-    reader.readAsDataURL(node.files[0]);
+
+function GetData() {
+    var name = document.getElementById("name").value;
+    var code = document.getElementById("code").value;
+    var bio = document.querySelector('input[name="bio"]:checked').value;
+
+    var itemsIcon = document.getElementsByClassName('icons');
+    var icons = [];
+    for (var i = 0; i < itemsIcon.length; i++) {
+        if (itemsIcon[i].type == 'checkbox' && itemsIcon[i].checked == true)
+            icons.push(parseInt(itemsIcon[i].value));
+    }
+    var material = document.getElementsByClassName('materials')[0].value.split(" ");
+    var links = document.getElementsByClassName('links')[0].value.split(" ");
+
+    return [name, code, parseInt(bio), icons, material, links]
 }
-// FireBase
-firebase.firestore().collection("kody").doc("5901939103075").set({
-    name: "Skyr jogurt pitny Wanilia",
-    icons: [1, 2, 3],
-    links: ["http://skyr.pl"],
-    material: ["Pet"],
-    bio: 2
-})
-    .then(function () {
-        console.log("Document successfully written!");
+function delData() {
+    var itemsIcon = document.getElementsByClassName('icons');
+    for (var i = 0; i < itemsIcon.length; i++) {
+        itemsIcon[i].checked = false;
+    }
+    document.getElementsByClassName('links')[0].value = ""
+    document.getElementsByClassName('materials')[0].value = ""
+    document.querySelector('input[name="bio"]:checked').checked = false;
+    document.getElementById("code").value = "";
+    document.getElementById("name").value = "";
+}
+//check that item exist
+document.getElementById('code').addEventListener(
+    'focusout', function () {
+        firebase.firestore().collection("kody").doc(document.getElementById("code").value).get()
+            .then(doc => {
+                if (!doc.exists) {
+                    return;
+                } else {
+                    document.getElementById("name").value = doc.data().name
+
+
+                    var bio = document.getElementsByClassName('bio')
+                    for (var i = 0; i < bio.length; i++) {
+                        if (bio[i].value == doc.data().bio) {
+                            document.getElementsByClassName('bio')[i].checked = true;
+                        }
+                    }
+
+                    var icons = document.getElementsByClassName('icons')
+                    for (var i = 0; i < icons.length; i++) {
+                        if (doc.data().icons.includes(parseInt(icons[i].value))) {
+                            document.getElementsByClassName('icons')[i].checked = true;
+                        }
+                    }
+                    document.getElementsByClassName('materials')[0].value = String(doc.data().material).replace(",", " ")
+                    document.getElementsByClassName('links')[0].value = String(doc.data().links).replace(",", " ")
+                }
+            })
+    }
+)
+function addToFirestroe(name, code, bio, icons, material, links) {
+    //    console.log(name, code, bio, icons, material, links)
+    firebase.firestore().collection("kody").doc(code).set({
+        name: name,
+        icons: icons,
+        links: links,
+        material: material,
+        bio: bio
     })
-    .catch(function (error) {
-        console.error("Error writing document: ", error);
-    });
+        .then(function () {
+            console.log("Document successfully written!");
+        })
+        .catch(function (error) {
+            alert("Error writing document: ", error);
+        });
+}
+function searchData() {
+    firebase.firestore().collection("kody").where("name", "==", document.getElementsByClassName('itemName')[0].value)
+        .get()
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                document.getElementById("code").value = doc.id
+                document.getElementById("name").value = doc.data().name
+
+
+                var bio = document.getElementsByClassName('bio')
+                for (var i = 0; i < bio.length; i++) {
+                    if (bio[i].value == doc.data().bio) {
+                        document.getElementsByClassName('bio')[i].checked = true;
+                    }
+                }
+
+                var icons = document.getElementsByClassName('icons')
+                for (var i = 0; i < icons.length; i++) {
+                    if (doc.data().icons.includes(parseInt(icons[i].value))) {
+                        document.getElementsByClassName('icons')[i].checked = true;
+                    }
+                }
+                document.getElementsByClassName('materials')[0].value = String(doc.data().material).replace(",", " ")
+                document.getElementsByClassName('links')[0].value = String(doc.data().links).replace(",", " ")
+            });
+        })
+        .catch(function (error) {
+            console.log("Error getting documents: ", error);
+        });
+}
+
+function sendData() {
+
+    addToFirestroe(GetData()[0], GetData()[1], GetData()[2], GetData()[3], GetData()[4], GetData()[5])
+
+    delData()
+}
+

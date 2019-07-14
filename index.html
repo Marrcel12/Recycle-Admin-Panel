@@ -57,8 +57,12 @@
     </div>
     <div id="searchData">
         <p> Znajdź po nazwie</p>
-        <input class="itemName"> </button>
-        <button onclick="searchData()"> Szukaj itemu</button>
+        <input class="itemName" list="itemsName"> 
+        <button class="itemNameSearch">
+            Pokaż dane
+        </button>
+        <datalist id="itemsName">
+          </datalist>
         <ul>
             <li class="emailArea"> Email <input type="text" id="email"></li>
             <li class="passArea"> haslo <input type="password" id="pass"></li>

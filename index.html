@@ -60,9 +60,13 @@
         <input class="itemName"> </button>
         <button onclick="searchData()"> Szukaj itemu</button>
         <ul>
-            <li> Email <input type="text" id="email"></li>
-            <li> haslo <input type="password" id="pass"></li>
-            <li> <button onclick="login()">Log in</button></li>
+            <li class="emailArea"> Email <input type="text" id="email"></li>
+            <li class="passArea"> haslo <input type="password" id="pass"></li>
+            <li> <button id="logIn" onclick="login()">Log in</button>
+             <button id="logOut"onclick="logOut()">Log out</button></li>
+            <li>
+                <p class="logStatus"></p>
+            </li>
         </ul>
     </div>
 

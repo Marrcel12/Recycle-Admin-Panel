@@ -12,25 +12,54 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 //custom code
+
 //login firebase
-function login(){
-    console.log('dddd');
+function login() {
     var userEmail = document.getElementById("email").value;
     var userPass = document.getElementById("pass").value;
-  
-    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-  
-      window.alert("Error : " + errorMessage);
-  
-      // ...
+
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        window.alert("Błąd uwierzytelnienia, skontaktuj się z administratorem");
+        console.log(errorCode, errorMessage)
     });
+}
+//status login
+firebase.auth().onAuthStateChanged(function(user) {
+    console.log(user);
+    if (user) {
+        document.getElementById('logOut').style.visibility='visible';
+        document.getElementById('logIn').style.visibility='hidden';
+      var user = firebase.auth().currentUser;
   
+      if(user != null){
+        document.getElementsByClassName('emailArea')[0].style.visibility='hidden';
+        document.getElementsByClassName('passArea')[0].style.visibility='hidden';  
+        document.getElementById("email").value="";
+        var userPass = document.getElementById("pass").value="";
+        var email_id = user.email;
+        document.getElementsByClassName("logStatus")[0].innerHTML = "Welcome User : " + email_id;
+  
+      }
+  
+    } else {
+        document.getElementsByClassName('emailArea')[0].style.visibility='visible';
+        document.getElementsByClassName('passArea')[0].style.visibility='visible';  
+      // No user is signed in.
+      document.getElementsByClassName('logStatus')[0].innerHTML="Nie Zalogowany żadny użytkownik"
+      document.getElementById('logOut').style.visibility='hidden';
+        document.getElementById('logIn').style.visibility='visible';  
+}
+  });
+  //log out
+  function logOut(){
+    firebase.auth().signOut();
   }
-  
-  
+
+
 function GetData() {
     var name = document.getElementById("name").value;
     var code = document.getElementById("code").value;

@@ -29,7 +29,6 @@ function login() {
 }
 //status login
 firebase.auth().onAuthStateChanged(function (user) {
-    console.log(user);
     if (user) {
         document.getElementById('logOut').style.visibility = 'visible';
         document.getElementById('logIn').style.visibility = 'hidden';
@@ -43,18 +42,17 @@ firebase.auth().onAuthStateChanged(function (user) {
             var email_id = user.email;
             document.getElementsByClassName("logStatus")[0].innerHTML = "Welcome User : " + email_id;
             //load list of name
-                firebase.firestore().collection("kody").get().then(function (querySnapshot) {
-                    var i=0;
-                    querySnapshot.forEach(function (doc) {
-                        console.log(doc.data().name);
-                       
-                        document.getElementById('itemsName').innerHTML+= '<option class=itemFromFirestroe ></option>'
-                        document.getElementsByClassName('itemFromFirestroe')[i].value=doc.data().name
-                        i++;
-                    });
-                    i=0;
+            firebase.firestore().collection("kody").get().then(function (querySnapshot) {
+                var i = 0;
+                querySnapshot.forEach(function (doc) {
+                    console.log(doc.data().name);
+                    document.getElementById('itemsName').innerHTML += '<option class=itemFromFirestore ></option>'
+                    document.getElementsByClassName('itemFromFirestore')[i].value = doc.data().name
+                    i++;
                 });
-            
+                i = 0;
+            });
+           
 
         }
 
@@ -148,41 +146,41 @@ function addToFirestroe(name, code, bio, icons, material, links) {
 }
 
 
-        
-   
+
+
 document.getElementsByClassName('itemNameSearch')[0].addEventListener(
     'click', function () {
 
-                var searchName = document.getElementsByClassName('itemName')[0].value;
-                firebase.firestore().collection("kody").where("name", "==", searchName)
-                    .get()
-                    .then(function (querySnapshot) {
-                        querySnapshot.forEach(function (doc) {
-                            document.getElementById("code").value = doc.id
-                            document.getElementById("name").value = doc.data().name
+        var searchName = document.getElementsByClassName('itemName')[0].value;
+        firebase.firestore().collection("kody").where("name", "==", searchName)
+            .get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    document.getElementById("code").value = doc.id
+                    document.getElementById("name").value = doc.data().name
 
 
-                            var bio = document.getElementsByClassName('bio')
-                            for (var i = 0; i < bio.length; i++) {
-                                if (bio[i].value == doc.data().bio) {
-                                    document.getElementsByClassName('bio')[i].checked = true;
-                                }
-                            }
+                    var bio = document.getElementsByClassName('bio')
+                    for (var i = 0; i < bio.length; i++) {
+                        if (bio[i].value == doc.data().bio) {
+                            document.getElementsByClassName('bio')[i].checked = true;
+                        }
+                    }
 
-                            var icons = document.getElementsByClassName('icons')
-                            for (var i = 0; i < icons.length; i++) {
-                                if (doc.data().icons.includes(parseInt(icons[i].value))) {
-                                    document.getElementsByClassName('icons')[i].checked = true;
-                                }
-                            }
-                            document.getElementsByClassName('materials')[0].value = String(doc.data().material).replace(",", " ")
-                            document.getElementsByClassName('links')[0].value = String(doc.data().links).replace(",", " ")
-                        });
-                    })
-                    .catch(function (error) {
-                        console.log("Error getting documents: ", error);
-                    });
-            
+                    var icons = document.getElementsByClassName('icons')
+                    for (var i = 0; i < icons.length; i++) {
+                        if (doc.data().icons.includes(parseInt(icons[i].value))) {
+                            document.getElementsByClassName('icons')[i].checked = true;
+                        }
+                    }
+                    document.getElementsByClassName('materials')[0].value = String(doc.data().material).replace(",", " ")
+                    document.getElementsByClassName('links')[0].value = String(doc.data().links).replace(",", " ")
+                });
+            })
+            .catch(function (error) {
+                console.log("Error getting documents: ", error);
+            });
+
 
     })
 

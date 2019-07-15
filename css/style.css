@@ -1,38 +1,76 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
     box-sizing: border-box;
 }
-.main-form{
+
+body {
+    background-color: #e0f2f1;
+    padding: 0;
+    margin: 0;
+}
+
+.main-form {
     width: 386px;
-    margin-left: 50%;
+    margin-left: 10vw;
     margin-top: 2%;
     transform: translateX(-25%);
 }
-.main-form *{
+
+.main-form * {
     padding: 1.2%;
 }
-/* .main-info .kod{
-    margin-left: 50%;
-} */
- /* #checkboxesBio label {
-    float: left;
-  }*/
-  #checkboxesBio ul { 
+
+#checkboxesBio ul {
     margin: 1%;
     list-style: none;
-    
-  } 
-  #searchData{
+
+}
+
+#searchData {
+    padding: 10px;
     position: absolute;
     right: 10%;
     top: 18px;
-  }
-  #searchData *{
-      padding: 1%;
+    background-color: #e0f2f1;
+    border: 5px solid #009688;
+    border-radius: 25px;
+}
 
-  }
-  
-  #searchData ul {
-      list-style: none;
-  }
+#searchData * {
+    padding: 1%;
+
+}
+
+#searchData ul {
+    list-style: none;
+}
+button{
+    background-color: #e0f2f1;
+    border: 2px solid #009688;
+    border-radius: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+    margin-top: 10px;
+}
+input{
+     background-color: #e0f2f1;
+    border: 2px solid #009688;
+        border-radius: 10px;
+    font-weight: bolder;
+}
+.logStatus{
+    font-weight: bolder;
+    text-underline-position: below;
+    text-decoration: underline;
+}
+.materials, .links{
+    width: 400px;
+}
+#checkboxesBio{
+     background-color: #e0f2f1;
+    border: 2px solid #009688;
+        border-radius: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

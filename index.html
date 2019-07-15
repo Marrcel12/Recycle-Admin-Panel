@@ -16,11 +16,9 @@
 
     <div class="main-form">
         <div class="kod">
-            Kod
-            <input type="text" id="code" class="pole"></div>
+            <input type="text" id="code" class="pole" placeholder="Kod produktu"></div>
         <span class="name">
-            Nazwa
-            <input type="text" id="name" class="pole"></span>
+            <input type="text" id="name" class="pole" placeholder="Nazwa produktu"></span>
 
 
 
@@ -50,14 +48,13 @@
                 <li><input type="checkbox" class="icons" value="10"> ikona10</li>
             </ul>
         </div>
-        <div class="materal">Wypisz Materialy odzielając je spacją <input type="text" class="materials"></div>
-        <div class="link">Wypisz linki odzielając je spacją <input type="text" class="links"></div>
+        <div class="materal"><input type="text" class="materials" placeholder="Z jakich materiałów jest produkt? Oddzielaj spacją."></div>
+        <div class="link"><input type="text" class="links" placeholder="Wpisz linki do poradników. Oddzielaj spacją."></div>
         <button onclick="sendData()">Zapisz</button>
 
     </div>
     <div id="searchData">
-        <p> Znajdź po nazwie</p>
-        <input class="itemName" list="itemsName">
+        <input class="itemName" list="itemsName" placeholder="Znajdź produkt po nazwie">
         <button class="itemNameSearch">
             Pokaż dane
         </button>
@@ -65,8 +62,8 @@
    
         </datalist>
         <ul>
-            <li class="emailArea"> Email <input type="text" id="email"></li>
-            <li class="passArea"> haslo <input type="password" id="pass"></li>
+            <li class="emailArea">  <input type="text" id="email" placeholder="E-Mail"></li>
+            <li class="passArea">  <input type="password" id="pass" placeholder="Hasło"></li>
             <li> <button id="logIn" onclick="login()">Log in</button>
             <button id="logOut" onclick="logOut()">Log out</button></li>
             <li>
